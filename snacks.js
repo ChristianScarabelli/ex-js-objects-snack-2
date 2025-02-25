@@ -20,7 +20,7 @@ Senza lanciare il codice, riesci a prevedere cosa viene stampato in console?
 Quanti oggetti sono stati creati in memoria durante l'esecuzione di questo codice?
 */
 
-// Ci sono 2 oggetti totali, l'originario e la sua Shallow Copy
+// Ci sono 3 oggetti totali, l'originario con il suo annidato e la sua Shallow Copy senza l'annidato
 
 const burger = {
     name: "Cheese Burger",
@@ -39,7 +39,7 @@ console.log(burger2.ingredients[0]); // ?  "Salad"
 Quanti oggetti sono stati creati in memoria durante l'esecuzione di questo codice?
 */
 
-// Ci sono 3 oggetti totali, l'originario e le sue 2 Deep Copy avanzate
+// Ci sono 9 oggetti totali, l'originario (con i suoi 2 annidati) e le sue 2 Deep Copy avanzate
 
 const panino = {
     name: "Cheese Burger",
@@ -90,7 +90,7 @@ Senza lanciare il codice, riesci a prevedere cosa viene stampato in console?
 Quanti oggetti sono stati creati in memoria durante l'esecuzione di questo codice?
 */
 
-// Ci sono 3 oggetti totali, l'originario, una sua Shallow Copy e la Shallow Copy di un suo oggetto annidato 
+// Ci sono 5 oggetti totali, l'originario (con i suoi 2 annidati), una sua Shallow Copy senza oggetti annidati e la Shallow Copy di un suo oggetto annidato 
 
 const pinsa = {
     name: "Cheese Burger",
@@ -115,7 +115,7 @@ pinsa2.maker.name = "Chef Hyur";
 
 console.log(pinsa.maker.name); // ? "Chef Hyur"
 console.log(pinsa2.maker.name); // ?    "Chef Hyur"
-console.log(pinsa.maker.restaurant.name); // ?"Hyur's Burgers"
+console.log(pinsa.maker.restaurant.name); // ?  "Hyur's II" perchè non si creano copie annidate
 console.log(pinsa2.maker.restaurant.name); // ? "Hyur's II"
 
 
@@ -123,7 +123,7 @@ console.log(pinsa2.maker.restaurant.name); // ? "Hyur's II"
 Qual è il metodo migliore per clonare l’oggetto cuoco, e perché?
 */
 
-// 
+// Siccome ci sono funzioni e oggetti annidati, una soluzione può essere annidare spread operator
 const cuoco = {
     name: "Chef Hyur",
     age: 29,
@@ -145,3 +145,15 @@ const cuoco = {
         isOpen: true,
     }
 }
+
+const cuocoCopia = {
+    ...cuoco,
+    restaurant: {
+        ...cuoco.restaurant,
+        address: {
+            ...cuoco.restaurant.address
+        }
+    }
+}
+
+console.log(cuocoCopia)
